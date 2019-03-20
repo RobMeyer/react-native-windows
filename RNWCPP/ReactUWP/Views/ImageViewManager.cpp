@@ -173,6 +173,19 @@ namespace react { namespace uwp {
     reactInstance->DispatchEvent(tag, eventName, std::move(eventData));
   }
 
+  
+  winrt::BitmapImage GetBitmapImage(const winrt::Windows::UI::Xaml::Controls::Image& image)
+  {
+    if (auto sourceAsBitmapImage = image.Source().try_as<winrt::BitmapImage>())
+      return sourceAsBitmapImage;
+    else
+    {
+      winrt::BitmapImage bitmapImage;
+      image.Source(bitmapImage);
+      return bitmapImage;
+    }
+  }
+
   std::future<void> DownloadImageAsync(winrt::Image image, ImageSource source, std::weak_ptr<IReactInstance> instanceWeak)
   {
     // Since this is a fire and forget function (not waited upon when called), we need to wrap in a
@@ -210,9 +223,8 @@ namespace react { namespace uwp {
         co_await winrt::Windows::Storage::Streams::RandomAccessStream::CopyAsync(inputStream, memoryStream);
         memoryStream.Seek(0);
 
-        winrt::BitmapImage bitmap;
-        co_await bitmap.SetSourceAsync(memoryStream);
-        image.Source(bitmap);
+        auto bitmapImage = GetBitmapImage(image);
+        co_await bitmapImage.SetSourceAsync(memoryStream);
 
         EmitImageEvent(instance, image, "topLoad", source);
       }
@@ -263,9 +275,8 @@ namespace react { namespace uwp {
       }
       else
       {
-        winrt::BitmapImage bitmap;
-        bitmap.UriSource(uri);
-        image.Source(bitmap);
+        auto bitmapImageSource = GetBitmapImage(image);
+        bitmapImageSource.UriSource(uri);
 
         EmitImageEvent(instance, image, "topLoad", sources[0]);
       }
