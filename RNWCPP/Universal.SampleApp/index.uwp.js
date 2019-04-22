@@ -13,10 +13,10 @@ import {
   WebView,
   Image,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  ActivityIndicator
 } from 'react-native';
 import {
-  CalendarView,
   CheckBox,
   DatePicker,
   Popup,
@@ -117,7 +117,6 @@ export default class Bootstrap extends Component {
     pickerSelectedValue: "key1",
     pickerSelectedIndex: 0,
     datePickerSelectedValue: new Date(),
-    calendarViewSelectedDate: new Date(),
   };
 
   render() {
@@ -155,6 +154,7 @@ export default class Bootstrap extends Component {
           </View>
         </ScrollView>
         <TicTacButton/>
+        <ActivityIndicator size='large' color="green"></ActivityIndicator>
         <Text style={{marginTop: 15}}>Big Border & Clipping Tests:</Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -342,13 +342,6 @@ export default class Bootstrap extends Component {
               onDateChange={this.datePickerValueChange}
             />
           </View>
-          <View style={{ padding: 10 }}>
-            <Text>Test CalendarView</Text>
-            <Text>Date selected: {this.state.calendarViewSelectedDate.toString()}</Text>
-            <CalendarView
-              onSelectedDateChange={this.calendarViewSelectedDateChange}
-            />
-          </View>
         </View>
       </ScrollView>
     );
@@ -425,10 +418,6 @@ export default class Bootstrap extends Component {
 
   datePickerValueChange = (date) => {
     this.setState({ datePickerSelectedValue: date });
-  }
-
-  calendarViewSelectedDateChange = (date) => {
-    this.setState({ calendarViewSelectedDate: date });
   }
 }
 

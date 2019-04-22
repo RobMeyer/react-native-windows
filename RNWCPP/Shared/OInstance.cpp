@@ -180,6 +180,7 @@ private:
   facebook::react::ChakraInstanceArgs args_;
 };
 
+#if defined(USE_V8)
 class V8JSIExecutorFactory : public JSExecutorFactory {
 public:
   std::unique_ptr<JSExecutor> createJSExecutor(
@@ -197,6 +198,7 @@ public:
       nullptr);
   }
 };
+#endif // USE_V8
 
 #else
 
@@ -214,7 +216,7 @@ private:
   facebook::react::ChakraInstanceArgs args_;
 };
 
-
+#if defined(USE_V8)
 class V8JSIExecutorFactory : public JSExecutorFactory {
 public:
   std::unique_ptr<JSExecutor> createJSExecutor(
@@ -225,6 +227,7 @@ public:
 
   V8JSIExecutorFactory() { std::abort(); }
 };
+#endif // USE_V8
 
 
 #endif
@@ -453,9 +456,11 @@ InstanceImpl::InstanceImpl(std::string&& jsBundleBasePath,
     case JSIMode::ChakraJSI:
       jsef = std::make_shared<ChakraJSIExecutorFactory>(std::move(instanceArgs));
       break;
+#if defined(USE_V8)
     case JSIMode::V8JSI:
       jsef = std::make_shared<V8JSIExecutorFactory>();
       break;
+#endif // USE_V8
     }
 
   }
@@ -481,6 +486,16 @@ InstanceImpl::InstanceImpl(std::string&& jsBundleBasePath,
 
 void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
 {
+  loadBundleInternal(std::move(jsBundleRelativePath), /*synchronously:*/false);
+}
+
+void InstanceImpl::loadBundleSync(std::string&& jsBundleRelativePath)
+{
+  loadBundleInternal(std::move(jsBundleRelativePath), /*synchronously:*/true);
+}
+
+void InstanceImpl::loadBundleInternal(std::string&& jsBundleRelativePath, bool synchronously)
+{
   std::string bytecodeFileNameCopy { m_devSettings->bytecodeFileName };
 
   // load JS
@@ -501,7 +516,7 @@ void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
         0 /*bundleVersion*/,
 #endif
         bundleUrl,
-        false /*synchronously*/
+        synchronously
 #if !defined(OSS_RN)
         , std::move(bytecodeFileNameCopy)
 #endif
@@ -532,7 +547,7 @@ void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
         0 /*bundleVersion*/,
 #endif
         jsBundleRelativePath,
-        false /*synchronously*/
+        synchronously
 #if !defined(OSS_RN)
         , "" /*bytecodeFileName*/ // No bytecode is used during Live Reload
 #endif
@@ -561,7 +576,7 @@ void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
             bundleTimestamp,
 #endif
             std::move(fullBundleFilePath),
-            false /*synchronously*/
+            synchronously
 #if !defined(OSS_RN)
             , std::move(bytecodeFileNameCopy)
 #endif
@@ -574,7 +589,7 @@ void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
             /*jsBundleVersion*/ 0,
 #endif
             std::move(fullBundleFilePath),
-            false /*synchronously*/
+            synchronously
 #if !defined(OSS_RN)
             , "" /*bytecodeFileName*/
 #endif
@@ -589,7 +604,7 @@ void InstanceImpl::loadBundle(std::string&& jsBundleRelativePath)
       0 /*bundleVersion*/,
 #endif
       jsBundleRelativePath,
-      false /*synchronously*/
+      synchronously
 #if !defined(OSS_RN)
       , "" /*bytecodeFileName*/
 #endif
