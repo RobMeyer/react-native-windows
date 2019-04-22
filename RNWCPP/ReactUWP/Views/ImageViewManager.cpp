@@ -156,7 +156,7 @@ namespace react { namespace uwp {
     Super::UpdateProperties(nodeToUpdate, reactDiffMap);
   }
 
-  void EmitImageEvent(const std::shared_ptr<react::uwp::IReactInstance> &reactInstance, winrt::Image image, const char* eventName, ImageSource& source)
+  void EmitImageEvent(const std::shared_ptr<react::uwp::IReactInstance> &reactInstance, const winrt::Image& image, const char* eventName, ImageSource& source)
   {
     if (reactInstance == nullptr)
       return;
@@ -180,6 +180,14 @@ namespace react { namespace uwp {
       return sourceAsBitmapImage;
     else
     {
+      // TODO: Can we add a cache around this? We'd need to pass Uri
+      // 1. Both local and remote resources can cache on Uri as the key
+      // 2. Async load from disk and load from network could share implementations with some refactoring?
+      // 3. Images fetched from network could be cached locally, but when do we re-fetch? Resources may have changed since we cached them
+      //      Perhaps we use the local cached resource while we async re-fetch and show the new resource if it differs, otherwise discard re-fetch results
+      //      Perhaps there's a cache timeout period
+      // 4. 
+
       winrt::BitmapImage bitmapImage;
       image.Source(bitmapImage);
       return bitmapImage;
@@ -241,7 +249,7 @@ namespace react { namespace uwp {
     EmitImageEvent(instanceWeak.lock(), image, "topLoadEnd", source);
   }
 
-  void ImageViewManager::setSource(winrt::Image image, folly::dynamic& data)
+  void ImageViewManager::setSource(winrt::Image& image, folly::dynamic& data)
   {
     auto instance = m_wkReactInstance.lock();
     if (instance == nullptr)
@@ -330,15 +338,15 @@ public:
     m_parent = nullptr;
   }
 
-  void getSize(std::string uri, Callback successCallback, Callback errorCallback);
-  void prefetchImage(std::string uri, Callback successCallback, Callback errorCallback);
+  void getSize(const std::string& uri, Callback successCallback, Callback errorCallback);
+  void prefetchImage(const std::string& uri, Callback successCallback, Callback errorCallback);
 
 private:
   ImageViewManagerModule *m_parent;
   std::shared_ptr<facebook::react::MessageQueueThread> m_queueThread;
 };
 
-winrt::fire_and_forget GetImageSizeAsync(std::string uri, facebook::xplat::module::CxxModule::Callback successCallback, facebook::xplat::module::CxxModule::Callback errorCallback)
+winrt::fire_and_forget GetImageSizeAsync(const std::string& uri, facebook::xplat::module::CxxModule::Callback successCallback, facebook::xplat::module::CxxModule::Callback errorCallback)
 {
   winrt::Image image;
   ImageSource source;
@@ -372,12 +380,12 @@ winrt::fire_and_forget GetImageSizeAsync(std::string uri, facebook::xplat::modul
 }
 
 
-void ImageViewManagerModule::ImageViewManagerModuleImpl::getSize(std::string uri, Callback successCallback, Callback errorCallback)
+void ImageViewManagerModule::ImageViewManagerModuleImpl::getSize(const std::string& uri, Callback successCallback, Callback errorCallback)
 {
   GetImageSizeAsync(uri, successCallback, errorCallback);
 }
 
-void ImageViewManagerModule::ImageViewManagerModuleImpl::prefetchImage(std::string /*uri*/, Callback successCallback, Callback /*errorCallback*/)
+void ImageViewManagerModule::ImageViewManagerModuleImpl::prefetchImage(const std::string& /*uri*/, Callback successCallback, Callback /*errorCallback*/)
 {
   // NotYetImplemented
   successCallback({});
