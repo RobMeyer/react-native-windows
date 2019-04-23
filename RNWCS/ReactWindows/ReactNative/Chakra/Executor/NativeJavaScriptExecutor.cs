@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using ChakraBridge;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
@@ -247,24 +246,7 @@ namespace ReactNative.Chakra.Executor
                 throw new ArgumentNullException(nameof(callSyncHook));
 
             _executor.SetCallSyncHook((moduleId, methodId, args) =>
-            {
-                try
-                {
-                    var result = callSyncHook(moduleId, methodId, JArray.Parse(args))?.ToString(Formatting.None) ?? "null";
-                    return new ChakraStringResult
-                    {
-                        Result = result,
-                    };
-                }
-                catch (Exception e)
-                {
-                    return new ChakraStringResult
-                    {
-                        Result = e.Message,
-                        ErrorCode = -1 /* Only has to be non-zero */,
-                    };
-                }
-            });
+                callSyncHook(moduleId, methodId, JArray.Parse(args))?.ToString(Formatting.None) ?? "null");
         }
 
         /// <summary>
