@@ -1,5 +1,8 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+/**
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License.
+ * @format
+ */
 
 'use strict';
 import React = require('react');
@@ -49,6 +52,10 @@ const ComponentExamples: Array<IRNTesterExample> = [
     module: require('./FlyoutExample.uwp'),
   },
   {
+    key: 'GlyphExample',
+    module: require('./GlyphExample'),
+  },
+  {
     key: 'ImageExample',
     module: require('react-native/RNTester/js/ImageExample'),
   },
@@ -65,15 +72,17 @@ const ComponentExamples: Array<IRNTesterExample> = [
     module: require('./PopupExample.uwp'),
   },
   {
-    key: 'ScrollViewSimpleExample',
-    module: require('react-native/RNTester/js/ScrollViewSimpleExample')
+    key: 'KeyboardExtensionExample',
+    module: require('./KeyboardExtensionExample.uwp'),
   },
-  /*  TODO: Enable SectionList when Animation is supported
+  {
+    key: 'ScrollViewSimpleExample',
+    module: require('react-native/RNTester/js/ScrollViewSimpleExample'),
+  },
   {
     key: 'SectionListExample',
     module: require('react-native/RNTester/js/SectionListExample'),
   },
-  */
   {
     key: 'SwitchExample',
     module: require('react-native/RNTester/js/SwitchExample'),
@@ -107,12 +116,24 @@ const ComponentExamples: Array<IRNTesterExample> = [
 
 const APIExamples: Array<IRNTesterExample> = [
   {
+    key: 'KeyboardFocusExample',
+    module: require('./KeyboardFocusExample.uwp'),
+  },
+  {
     key: 'AccessibilityExample',
-    module: require('./AccessibilityExample')
+    module: require('./AccessibilityExample'),
+  },
+  {
+    key: 'AnimatedExample',
+    module: require('react-native/RNTester/js/AnimatedExample'),
   },
   {
     key: 'AppStateExample',
-    module: require('react-native/RNTester/js/AppStateExample')
+    module: require('react-native/RNTester/js/AppStateExample'),
+  },
+  {
+    key: 'ThemingExample',
+    module: require('./ThemingExample'),
   },
   {
     key: 'BorderExample',
@@ -136,7 +157,7 @@ const APIExamples: Array<IRNTesterExample> = [
   },
   {
     key: 'KeyboardExample',
-    module: require('./KeyboardExample')
+    module: require('./KeyboardExample'),
   },
   {
     key: 'LayoutExample',
@@ -159,6 +180,10 @@ const APIExamples: Array<IRNTesterExample> = [
     module: require('react-native/RNTester/js/RTLExample'),
   },
   {
+    key: 'TransformExample',
+    module: require('react-native/RNTester/js/TransformExample'),
+  },
+  {
     key: 'TimerExample',
     module: require('react-native/RNTester/js/TimerExample'),
   },
@@ -173,7 +198,7 @@ const APIExamples: Array<IRNTesterExample> = [
   },*/
 ];
 
-const Modules: { [key: string]: IRNTesterModule } = {};
+const Modules: {[key: string]: IRNTesterModule} = {};
 
 APIExamples.concat(ComponentExamples).forEach((Example: IRNTesterExample) => {
   Modules[Example.key] = Example.module;
@@ -182,7 +207,7 @@ APIExamples.concat(ComponentExamples).forEach((Example: IRNTesterExample) => {
 const RNTesterList = {
   APIExamples,
   ComponentExamples,
-  Modules
+  Modules,
 };
 
 export default RNTesterList;

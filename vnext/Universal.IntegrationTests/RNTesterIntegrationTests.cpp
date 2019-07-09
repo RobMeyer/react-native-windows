@@ -5,26 +5,22 @@
 #include <CppUnitTest.h>
 #include "TestRunner.h"
 
-using namespace facebook::react::test;
+using namespace Microsoft::React::Test;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace Microsoft {
-namespace VisualStudio {
-namespace CppUnitTestFramework {
+namespace Microsoft::VisualStudio::CppUnitTestFramework {
 
-static std::wstring ToString(const facebook::react::test::TestStatus& status)
-{
+template <>
+std::wstring ToString<TestStatus>(const TestStatus &status) {
   return ToString(static_cast<unsigned int>(status));
 }
 
-} } } // namespace Microsoft::VisualStudio::CppUnitTestFramework
+} // namespace Microsoft::VisualStudio::CppUnitTestFramework
 
-TEST_CLASS(RNTesterIntegrationTests)
-{
+TEST_CLASS(RNTesterIntegrationTests) {
   TestRunner m_runner;
 
-  TEST_METHOD(Dummy)
-  {
+  TEST_METHOD(Dummy) {
     auto result = m_runner.RunTest("IntegrationTests/DummyTest", "DummyTest");
     Assert::AreEqual(TestStatus::Passed, result.Status, result.Message.c_str());
   }

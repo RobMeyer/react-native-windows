@@ -1,8 +1,15 @@
-// Used to update the package version 
+// @ts-check
+// Used to update the package version
 
-const fs = require("fs");
 const path = require("path");
 const execSync = require("child_process").execSync;
+const {
+  pkgJsonPath,
+  publishBranchName,
+  updateVersionsInFiles,
+  win32VersionRcPath,
+  uwpVersionRcPath
+} = require("./versionUtils");
 
 function exec(command) {
   try {
@@ -18,8 +25,19 @@ function exec(command) {
 }
 
 function updateVersion() {
-  const publishBranchName = process.env.publishBranchName;
-  const tempPublishBranch = `publish-${Date.now()}`;
+  // Set env variable to allow npm publish task to publish to correct tag
+  console.log(
+    `##vso[task.setvariable variable=npmTag]${
+      publishBranchName === "master" ? "vnext" : publishBranchName
+    }`
+  );
+  console.log(`Target branch to publish to: ${publishBranchName}`);
+
+  const tempPublishBranch = `auto-update-version-publish-temp-${Date.now()}`;
+
+  console.log(
+    `Using ${`(.*-microsoft)(-${publishBranchName})?\\.([0-9]*)`} to match version`
+  );
 
   exec(`npm install -g yarn`);
 
@@ -27,48 +45,37 @@ function updateVersion() {
   exec(`git fetch origin ${publishBranchName}`);
   exec(`git checkout ${publishBranchName} --force`);
   exec(`git reset --hard origin/${publishBranchName}`);
-  
+
   exec(`git checkout -b ${tempPublishBranch}`);
 
-  const pkgJsonPath = path.resolve(__dirname, "../vnext/package.json");
-  let pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf8"));
-
-  let releaseVersion = pkgJson.version;
-
-  const versionGroups = /(.*-vnext\.)([0-9]*)/.exec(releaseVersion);
-  if (versionGroups) {
-    releaseVersion = versionGroups[1] + (parseInt(versionGroups[2]) + 1);
-  } else {
-    if (releaseVersion.indexOf("-") === -1) {
-      releaseVersion = releaseVersion + "-vnext.0";
-    } else {
-      console.log("Invalid version to publish");
-      exit(1);
-    }
-  }
-
-  pkgJson.version = releaseVersion;
-  fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
-  console.log(`Updating package.json to version ${releaseVersion}`);
+  const releaseVersion = updateVersionsInFiles();
 
   process.chdir(path.resolve(__dirname, "../vnext"));
-  exec(`${process.env.APPDATA}\\npm\\node_modules\\yarn\\bin\\yarn.cmd install`);
+  exec(
+    `${process.env.APPDATA}\\npm\\node_modules\\yarn\\bin\\yarn.cmd install`
+  );
   exec(`${process.env.APPDATA}\\npm\\node_modules\\yarn\\bin\\yarn.cmd build`);
 
-  const tagName = 'vnext-' + releaseVersion;
+  const tagName = "vnext-" + releaseVersion;
 
   exec(`git add ${pkgJsonPath}`);
+  exec(`git add ${win32VersionRcPath}`);
+  exec(`git add ${uwpVersionRcPath}`);
+
   exec(`git commit -m "Applying package update to ${releaseVersion}`);
   exec(`git tag ${tagName}`);
   exec(`git push origin HEAD:${tempPublishBranch} --follow-tags --verbose`);
   exec(`git push origin tag ${tagName}`);
 
+  // Record the updated npmVersion and commitId so that later build tasks can use it (to record in the nuget for instance)
+  const publishCommitId = execSync(`git rev-list -n 1 ${tagName}`);
+  console.log(`##vso[task.setvariable variable=publishCommitId;isOutput=true]${publishCommitId}`);
+  console.log(`##vso[task.setvariable variable=npmVersion;isOutput=true]${releaseVersion}`);
+  
   exec(`git checkout ${publishBranchName}`);
   exec(`git pull origin ${publishBranchName}`);
   exec(`git merge ${tempPublishBranch} --no-edit`);
-  exec(
-    `git push origin HEAD:${publishBranchName} --follow-tags --verbose`
-  );
+  exec(`git push origin HEAD:${publishBranchName} --follow-tags --verbose`);
   exec(`git branch -d ${tempPublishBranch}`);
   exec(`git push origin --delete -d ${tempPublishBranch}`);
 }
