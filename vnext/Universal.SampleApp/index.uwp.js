@@ -833,6 +833,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 1,
   },
   instructions: {
     textAlign: 'center',
