@@ -7,6 +7,7 @@
 
 import React, {Component} from 'react';
 import {
+  Animated,
   AppRegistry,
   Button,
   StyleSheet,
@@ -135,10 +136,21 @@ export default class Bootstrap extends Component {
   };
 
   render() {
+    var animatedValue = new Animated.Value(-50);
+
     return (
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.welcome}>Welcome to React Native</Text>
+
+          <View style={{width: 200, height: 50, backgroundColor: 'red', overflow: 'hidden'}}>
+            <Animated.View style={{position: 'absolute', width: '100%', height: '100%', backgroundColor: 'yellow', transform: [{translateX: animatedValue}]}}>
+              <Text>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies nisi et mi semper blandit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi non aliquet erat. Donec eu interdum mauris, nec hendrerit orci. Maecenas vulputate, neque et scelerisque aliquam, ipsum purus gravida velit, nec luctus elit ipsum id eros. Phasellus cursus metus neque, non aliquet arcu ultricies et. Vestibulum gravida diam eget sodales fringilla.
+              </Text>
+            </Animated.View>
+          </View>
+
           <Text style={styles.instructions}>
             To get started, edit index.uwp.js
           </Text>
