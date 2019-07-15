@@ -138,6 +138,58 @@ export default class Bootstrap extends Component {
     return (
       <ScrollView>
         <View style={styles.container}>
+          <View tabFocusNavigation="cycle">
+            <View
+              accessible={true}
+              acceptsKeyboardFocus={true}
+              style={{
+                width: 60,
+                height: 60,
+                backgroundColor: 'blue',
+                margin: 5,
+              }}
+            />
+            <View
+              accessible={true}
+              acceptsKeyboardFocus={true}
+              style={{
+                width: 60,
+                height: 60,
+                backgroundColor: 'blue',
+                margin: 5,
+              }}
+            />
+            <View
+              accessible={true}
+              acceptsKeyboardFocus={true}
+              style={{
+                width: 60,
+                height: 60,
+                backgroundColor: 'blue',
+                margin: 5,
+              }}
+            />
+            <View
+              accessible={true}
+              acceptsKeyboardFocus={true}
+              style={{
+                width: 60,
+                height: 60,
+                backgroundColor: 'blue',
+                margin: 5,
+              }}
+            />
+            <View
+              accessible={true}
+              acceptsKeyboardFocus={true}
+              style={{
+                width: 60,
+                height: 60,
+                backgroundColor: 'blue',
+                margin: 5,
+              }}
+            />
+          </View>
           <Text style={styles.welcome}>Welcome to React Native</Text>
           <Text style={styles.instructions}>
             To get started, edit index.uwp.js

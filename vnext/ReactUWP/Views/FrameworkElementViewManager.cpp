@@ -126,11 +126,17 @@ void FrameworkElementViewManager::TransferProperties(
 
 folly::dynamic FrameworkElementViewManager::GetNativeProps() const {
   folly::dynamic props = Super::GetNativeProps();
-  props.update(folly::dynamic::object("accessible", "boolean")(
-      "accessibilityRole", "string")("accessibilityStates", "array")(
-      "accessibilityHint", "string")("accessibilityLabel", "string")(
+  props.update(folly::dynamic::object
+    ("accessible", "boolean")
+    ("accessibilityRole", "string")
+    ("accessibilityStates", "array")
+    ("accessibilityHint", "string")
+    ("accessibilityLabel", "string")(
       "accessibilityPosInSet", "number")("accessibilitySetSize", "number")(
-      "testID", "string")("tooltip", "string"));
+      "tabFocusNavigation", "string")
+    ("testID", "string")
+    ("tooltip", "string")
+  );
   return props;
 }
 
@@ -153,6 +159,24 @@ void FrameworkElementViewManager::UpdateProperties(
         } else if (propertyValue.isNull()) {
           element.ClearValue(winrt::UIElement::OpacityProperty());
           continue;
+        }
+      } else if (propertyName == "tabFocusNavigation") {
+        if (propertyValue.isString()) {
+          if (propertyValue == "cycle") {
+            element.TabFocusNavigation(
+                winrt::Windows::UI::Xaml::Input::KeyboardNavigationMode::Cycle);
+          } else if (propertyValue == "local") {
+            element.TabFocusNavigation(
+                winrt::Windows::UI::Xaml::Input::KeyboardNavigationMode::Local);
+          } else if (propertyValue == "once") {
+            element.TabFocusNavigation(
+                winrt::Windows::UI::Xaml::Input::KeyboardNavigationMode::Once);
+          } else {
+            // TODO: Report error
+            continue;
+          }
+        } else {
+          element.ClearValue(winrt::UIElement::TabFocusNavigationProperty());
         }
       } else if (propertyName == "transform") {
         if (element.try_as<winrt::IUIElement10>()) // Works on 19H1+
