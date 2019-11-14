@@ -30,6 +30,51 @@ void UpdateResourceBrush(
   }
 }
 
+void UpdateCheckBoxBackgroundResourceBrushes(const winrt::FrameworkElement element, const winrt::Brush brush) {
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillUnchecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillUncheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillUncheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillUncheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillChecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillCheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillCheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillCheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillIndeterminate, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillIndeterminatePointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillIndeterminatePressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundFillIndeterminateDisabled, brush);
+}
+
+void UpdateCheckBoxForegroundResourceBrushes(const winrt::FrameworkElement element, const winrt::Brush brush) {
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundUnchecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundUncheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundUncheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundUncheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundChecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundCheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundCheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundCheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundIndeterminate, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundIndeterminatePointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundIndeterminatePressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckGlyphForegroundIndeterminateDisabled, brush);
+}
+
+void UpdateCheckBoxBorderResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeUnchecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeUncheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeUncheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeUncheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeChecked, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeCheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeCheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeCheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeIndeterminate, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeIndeterminatePointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeIndeterminatePressed, brush);
+  UpdateResourceBrush(element, c_checkBoxCheckBackgroundStrokeIndeterminateDisabled, brush);
+}
+
 void UpdateTextControlBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
   UpdateResourceBrush(element, c_textControlBackground, brush);
   UpdateResourceBrush(element, c_textControlBackgroundPointerOver, brush);
@@ -104,6 +149,8 @@ void UpdateControlBackgroundResourceBrushes(
     const winrt::Media::Brush brush) {
   if (IsObjectATextControl(element)) {
     UpdateTextControlBackgroundResourceBrushes(element, brush);
+  } else if (const auto checkbox = element.try_as<winrt::CheckBox>()) {
+    UpdateCheckBoxBackgroundResourceBrushes(element, brush);
   }
 }
 
@@ -113,6 +160,9 @@ void UpdateControlForegroundResourceBrushes(
   if (IsObjectATextControl(object)) {
     const auto element = object.try_as<winrt::FrameworkElement>();
     UpdateTextControlForegroundResourceBrushes(element, brush);
+  } else if (const auto checkbox = object.try_as<winrt::CheckBox>()) {
+    const auto element = object.try_as<winrt::FrameworkElement>();
+    UpdateCheckBoxForegroundResourceBrushes(element, brush);
   }
 }
 
@@ -123,6 +173,8 @@ void UpdateControlBorderResourceBrushes(
     UpdateTextControlBorderResourceBrushes(element, brush);
   } else if (const auto toggleSwitch = element.try_as<winrt::ToggleSwitch>()) {
     UpdateToggleSwitchBorderResourceBrushes(toggleSwitch, brush);
+  } else if (const auto checkbox = element.try_as<winrt::CheckBox>()) {
+    UpdateCheckBoxBorderResourceBrushes(element, brush);
   }
 }
 
