@@ -30,6 +30,14 @@ void UpdateResourceBrush(
   }
 }
 
+void UpdateComboBoxBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
+  UpdateResourceBrush(element, c_comboBoxBackground, brush);
+  UpdateResourceBrush(element, c_comboBoxBackgroundPointerOver, brush);
+  UpdateResourceBrush(element, c_comboBoxBackgroundPressed, brush);
+  UpdateResourceBrush(element, c_comboBoxBackgroundDisabled, brush);
+  UpdateResourceBrush(element, c_comboBoxBackgroundUnfocused, brush);
+}
+
 void UpdateTextControlBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
   UpdateResourceBrush(element, c_textControlBackground, brush);
   UpdateResourceBrush(element, c_textControlBackgroundPointerOver, brush);
@@ -99,11 +107,17 @@ bool IsObjectATextControl(const winrt::DependencyObject &object) {
       object.try_as<winrt::RichEditBox>() != nullptr || object.try_as<winrt::AutoSuggestBox>() != nullptr;
 }
 
+bool IsObjectAComboBox(const winrt::DependencyObject &object) {
+  return object.try_as<winrt::ComboBox>() != nullptr;
+}
+
 void UpdateControlBackgroundResourceBrushes(
     const winrt::Windows::UI::Xaml::FrameworkElement &element,
     const winrt::Media::Brush brush) {
   if (IsObjectATextControl(element)) {
     UpdateTextControlBackgroundResourceBrushes(element, brush);
+  } else if (IsObjectAComboBox(element)) {
+    UpdateComboBoxBackgroundResourceBrushes(element, brush);
   }
 }
 

@@ -160,3 +160,30 @@ static const wchar_t *c_checkBoxCheckGlyphForegroundIndeterminatePressed =
     L"CheckBoxCheckGlyphForegroundIndeterminatePressed";
 static const wchar_t *c_checkBoxCheckGlyphForegroundIndeterminateDisabled =
     L"CheckBoxCheckGlyphForegroundIndeterminateDisabled";
+
+// https://docs.microsoft.com/en-us/uwp/api/Windows.UI.Xaml.Controls.ComboBox#control-style-and-template
+static const wchar_t *c_comboBoxBackground = L"ComboBoxBackground";
+static const wchar_t *c_comboBoxBackgroundPointerOver = L"ComboBoxBackgroundPointerOver";
+static const wchar_t *c_comboBoxBackgroundPressed = L"ComboBoxBackgroundPressed";
+static const wchar_t *c_comboBoxBackgroundDisabled = L"ComboBoxBackgroundDisabled";
+static const wchar_t *c_comboBoxBackgroundUnfocused = L"ComboBoxBackgroundUnfocused";
+static const wchar_t *c_comboBoxBackgroundBorderBrushFocused = L"ComboBoxBackgroundBorderBrushFocused";
+static const wchar_t *c_comboBoxBackgroundBorderBrushUnfocused = L"ComboBoxBackgroundBorderBrushUnfocused";
+static const wchar_t *c_comboBoxForeground = L"ComboBoxForeground";
+static const wchar_t *c_comboBoxForegroundDisabled = L"ComboBoxForegroundDisabled";
+static const wchar_t *c_comboBoxForegroundFocused = L"ComboBoxForegroundFocused";
+static const wchar_t *c_comboBoxForegroundFocusedPressed = L"ComboBoxForegroundFocusedPressed";
+static const wchar_t *c_comboBoxPlaceHolderForeground = L"ComboBoxPlaceHolderForeground";
+static const wchar_t *c_comboBoxPlaceHolderForegroundFocusedPressed = L"ComboBoxPlaceHolderForegroundFocusedPressed";
+static const wchar_t *c_comboBoxBorderBrush = L"ComboBoxBorderBrush";
+static const wchar_t *c_comboBoxBorderBrushPointerOver = L"ComboBoxBorderBrushPointerOver";
+static const wchar_t *c_comboBoxBorderBrushPressed = L"ComboBoxBorderBrushPressed";
+static const wchar_t *c_comboBoxBorderBrushDisabled = L"ComboBoxBorderBrushDisabled";
+static const wchar_t *c_comboBoxDropDownGlyphForeground = L"ComboBoxDropDownGlyphForeground";
+static const wchar_t *c_comboBoxDropDownGlyphForegroundDisabled = L"ComboBoxDropDownGlyphForegroundDisabled";
+static const wchar_t *c_comboBoxDropDownGlyphForegroundFocused = L"ComboBoxDropDownGlyphForegroundFocused";
+static const wchar_t *c_comboBoxDropDownGlyphForegroundFocusedPressed =
+    L"ComboBoxDropDownGlyphForegroundFocusedPressed";
+static const wchar_t *c_comboBoxDropDownBackground = L"ComboBoxDropDownBackground";
+static const wchar_t *c_comboBoxDropDownForeground = L"ComboBoxDropDownForeground";
+static const wchar_t *c_comboBoxDropDownBorderBrush = L"ComboBoxDropDownBorderBrush";
