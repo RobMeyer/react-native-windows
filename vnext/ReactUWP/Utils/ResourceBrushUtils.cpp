@@ -46,7 +46,7 @@ void UpdateComboBoxBackgroundResourceBrushes(const winrt::ComboBox &comboBox, co
 
 void UpdateTextControlForegroundResourceBrushes(const winrt::FrameworkElement element, const winrt::Brush brush);
 
- void UpdateComboBoxForegroundResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
+void UpdateComboBoxForegroundResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
   UpdateResourceBrush(comboBox, c_comboBoxForeground, brush);
   UpdateResourceBrush(comboBox, c_comboBoxForegroundDisabled, brush);
   UpdateResourceBrush(comboBox, c_comboBoxForegroundFocused, brush);
@@ -60,7 +60,7 @@ void UpdateTextControlForegroundResourceBrushes(const winrt::FrameworkElement el
   // This resource is used to control colors of the TextBox internally used
   // by a ComboBox with IsEditable=true
   UpdateTextControlForegroundResourceBrushes(comboBox, brush);
- }
+}
 
 void UpdateComboBoxBorderResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
   UpdateResourceBrush(comboBox, c_comboBoxBorderBrush, brush);
@@ -98,7 +98,7 @@ void UpdateComboBoxItemForegroundResourceBrushes(const winrt::ComboBoxItem &comb
   UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelectedDisabled, brush);
 }
 
-void UpdateComboBoxItemBorderResourceBrushes(const winrt::ComboBoxItem &comboBoxItem, const winrt::Brush brush){
+void UpdateComboBoxItemBorderResourceBrushes(const winrt::ComboBoxItem &comboBoxItem, const winrt::Brush brush) {
   UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrush, brush);
   UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushPointerOver, brush);
   UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushPressed, brush);
@@ -213,7 +213,7 @@ void UpdateControlBorderResourceBrushes(
     UpdateToggleSwitchBorderResourceBrushes(toggleSwitch, brush);
   } else if (const auto comboBox = element.try_as<winrt::ComboBox>()) {
     UpdateComboBoxBorderResourceBrushes(comboBox, brush);
-  }else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
+  } else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
     UpdateComboBoxItemBorderResourceBrushes(comboBoxItem, brush);
   }
 }

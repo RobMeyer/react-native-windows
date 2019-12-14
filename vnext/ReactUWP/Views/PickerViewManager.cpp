@@ -7,6 +7,7 @@
 #include "PickerViewManager.h"
 
 #include <Utils/ValueUtils.h>
+#include <Utils/PropertyUtils.h>
 #include "Unicode.h"
 
 #include <IReactInstance.h>
@@ -127,6 +128,7 @@ void PickerShadowNode::updateProperties(const folly::dynamic &&props) {
     combobox.SelectedIndex(m_selectedIndex);
 
   Super::updateProperties(std::move(props));
+
   m_updating = false;
 }
 
@@ -138,14 +140,18 @@ void PickerShadowNode::RepopulateItems() {
   for (const auto &item : m_items) {
     if (item.count("label")) {
       std::string label = item["label"].asString();
-      auto comboboxItem = winrt::ComboBoxItem();
+      auto comboBoxItem = winrt::ComboBoxItem();
 
-      comboboxItem.Content(winrt::box_value(Microsoft::Common::Unicode::Utf8ToUtf16(label)));
+      comboBoxItem.Content(winrt::box_value(Microsoft::Common::Unicode::Utf8ToUtf16(label)));
 
-      if (item.count("textColor") && IsValidColorValue(item["textColor"]))
-        comboboxItem.Foreground(BrushFrom(item["textColor"]));
+      if (item.count("textColor") && IsValidColorValue(item["textColor"])) {
+        const auto brush = BrushFrom(item["textColor"]);
+        UpdateControlForegroundResourceBrushes(comboBoxItem, brush);
+      } else {
+        UpdateControlForegroundResourceBrushes(comboBoxItem, nullptr);
+      }
 
-      comboBoxItems.Append(comboboxItem);
+      comboBoxItems.Append(comboBoxItem);
     }
   }
   if (m_selectedIndex < static_cast<int32_t>(m_items.size()))
