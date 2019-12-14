@@ -187,3 +187,35 @@ static const wchar_t *c_comboBoxDropDownGlyphForegroundFocusedPressed =
 static const wchar_t *c_comboBoxDropDownBackground = L"ComboBoxDropDownBackground";
 static const wchar_t *c_comboBoxDropDownForeground = L"ComboBoxDropDownForeground";
 static const wchar_t *c_comboBoxDropDownBorderBrush = L"ComboBoxDropDownBorderBrush";
+
+// undocumented but used by ComboBox's default ControlTemplate
+static const wchar_t *c_comboBoxEditableDropDownGlyphForeground = L"ComboBoxEditableDropDownGlyphForeground";
+
+// https://docs.microsoft.com/en-us/uwp/api/Windows.UI.Xaml.Controls.ComboBoxItem
+static const wchar_t *c_comboBoxItemForeground = L"ComboBoxItemForeground";
+static const wchar_t *c_comboBoxItemForegroundPointerOver = L"ComboBoxItemForegroundPointerOver";
+static const wchar_t *c_comboBoxItemForegroundPressed = L"ComboBoxItemForegroundPressed";
+static const wchar_t *c_comboBoxItemForegroundDisabled = L"ComboBoxItemForegroundDisabled";
+static const wchar_t *c_comboBoxItemForegroundSelected = L"ComboBoxItemForegroundSelected";
+static const wchar_t *c_comboBoxItemForegroundSelectedUnfocused = L"ComboBoxItemForegroundSelectedUnfocused";
+static const wchar_t *c_comboBoxItemForegroundSelectedPointerOver = L"ComboBoxItemForegroundSelectedPointerOver";
+static const wchar_t *c_comboBoxItemForegroundSelectedPressed = L"ComboBoxItemForegroundSelectedPressed";
+static const wchar_t *c_comboBoxItemForegroundSelectedDisabled = L"ComboBoxItemForegroundSelectedDisabled";
+static const wchar_t *c_comboBoxItemBackground = L"ComboBoxItemBackground";
+static const wchar_t *c_comboBoxItemBackgroundPointerOver = L"ComboBoxItemBackgroundPointerOver";
+static const wchar_t *c_comboBoxItemBackgroundPressed = L"ComboBoxItemBackgroundPressed";
+static const wchar_t *c_comboBoxItemBackgroundDisabled = L"ComboBoxItemBackgroundDisabled";
+static const wchar_t *c_comboBoxItemBackgroundSelected = L"ComboBoxItemBackgroundSelected";
+static const wchar_t *c_comboBoxItemBackgroundSelectedUnfocused = L"ComboBoxItemBackgroundSelectedUnfocused";
+static const wchar_t *c_comboBoxItemBackgroundSelectedPointerOver = L"ComboBoxItemBackgroundSelectedPointerOver";
+static const wchar_t *c_comboBoxItemBackgroundSelectedPressed = L"ComboBoxItemBackgroundSelectedPressed";
+static const wchar_t *c_comboBoxItemBackgroundSelectedDisabled = L"ComboBoxItemBackgroundSelectedDisabled";
+static const wchar_t *c_comboBoxItemBorderBrush = L"ComboBoxItemBorderBrush";
+static const wchar_t *c_comboBoxItemBorderBrushPointerOver = L"ComboBoxItemBorderBrushPointerOver";
+static const wchar_t *c_comboBoxItemBorderBrushPressed = L"ComboBoxItemBorderBrushPressed";
+static const wchar_t *c_comboBoxItemBorderBrushDisabled = L"ComboBoxItemBorderBrushDisabled";
+static const wchar_t *c_comboBoxItemBorderBrushSelected = L"ComboBoxItemBorderBrushSelected";
+static const wchar_t *c_comboBoxItemBorderBrushSelectedUnfocused = L"ComboBoxItemBorderBrushSelectedUnfocused";
+static const wchar_t *c_comboBoxItemBorderBrushSelectedPointerOver = L"ComboBoxItemBorderBrushSelectedPointerOver";
+static const wchar_t *c_comboBoxItemBorderBrushSelectedPressed = L"ComboBoxItemBorderBrushSelectedPressed";
+static const wchar_t *c_comboBoxItemBorderBrushSelectedDisabled = L"ComboBoxItemBorderBrushSelectedDisabled";

@@ -30,12 +30,84 @@ void UpdateResourceBrush(
   }
 }
 
-void UpdateComboBoxBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
-  UpdateResourceBrush(element, c_comboBoxBackground, brush);
-  UpdateResourceBrush(element, c_comboBoxBackgroundPointerOver, brush);
-  UpdateResourceBrush(element, c_comboBoxBackgroundPressed, brush);
-  UpdateResourceBrush(element, c_comboBoxBackgroundDisabled, brush);
-  UpdateResourceBrush(element, c_comboBoxBackgroundUnfocused, brush);
+void UpdateComboBoxBackgroundResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
+  UpdateResourceBrush(comboBox, c_comboBoxBackground, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBackgroundPointerOver, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBackgroundPressed, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBackgroundDisabled, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBackgroundUnfocused, brush);
+
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownBackground, brush);
+
+  // This resource is used to control colors of the TextBox internally used
+  // by a ComboBox with IsEditable=true
+  UpdateResourceBrush(comboBox, c_textControlBackgroundFocused, brush);
+}
+
+void UpdateTextControlForegroundResourceBrushes(const winrt::FrameworkElement element, const winrt::Brush brush);
+
+ void UpdateComboBoxForegroundResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
+  UpdateResourceBrush(comboBox, c_comboBoxForeground, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxForegroundDisabled, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxForegroundFocused, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxForegroundFocusedPressed, brush);
+
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownGlyphForeground, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownGlyphForegroundDisabled, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownGlyphForegroundFocused, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownGlyphForegroundFocusedPressed, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxEditableDropDownGlyphForeground, brush);
+  // This resource is used to control colors of the TextBox internally used
+  // by a ComboBox with IsEditable=true
+  UpdateTextControlForegroundResourceBrushes(comboBox, brush);
+ }
+
+void UpdateComboBoxBorderResourceBrushes(const winrt::ComboBox &comboBox, const winrt::Brush brush) {
+  UpdateResourceBrush(comboBox, c_comboBoxBorderBrush, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBorderBrushPointerOver, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBorderBrushPressed, brush);
+  UpdateResourceBrush(comboBox, c_comboBoxBorderBrushDisabled, brush);
+
+  // ? c_comboBoxBackgroundBorderBrushFocused
+  // ? c_comboBoxBackgroundBorderBrushUnfocused
+
+  UpdateResourceBrush(comboBox, c_comboBoxDropDownBorderBrush, brush);
+}
+
+void UpdateComboBoxItemBackgroundResourceBrushes(const winrt::ComboBoxItem &comboBoxItem, const winrt::Brush brush) {
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackground, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundDisabled, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundSelected, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundSelectedUnfocused, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundSelectedPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundSelectedPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBackgroundSelectedDisabled, brush);
+}
+
+void UpdateComboBoxItemForegroundResourceBrushes(const winrt::ComboBoxItem &comboBoxItem, const winrt::Brush brush) {
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForeground, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundDisabled, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelected, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelectedUnfocused, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelectedPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelectedPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemForegroundSelectedDisabled, brush);
+}
+
+void UpdateComboBoxItemBorderResourceBrushes(const winrt::ComboBoxItem &comboBoxItem, const winrt::Brush brush){
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrush, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushDisabled, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushSelected, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushSelectedUnfocused, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushSelectedPointerOver, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushSelectedPressed, brush);
+  UpdateResourceBrush(comboBoxItem, c_comboBoxItemBorderBrushSelectedDisabled, brush);
 }
 
 void UpdateTextControlBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
@@ -107,17 +179,15 @@ bool IsObjectATextControl(const winrt::DependencyObject &object) {
       object.try_as<winrt::RichEditBox>() != nullptr || object.try_as<winrt::AutoSuggestBox>() != nullptr;
 }
 
-bool IsObjectAComboBox(const winrt::DependencyObject &object) {
-  return object.try_as<winrt::ComboBox>() != nullptr;
-}
-
 void UpdateControlBackgroundResourceBrushes(
     const winrt::Windows::UI::Xaml::FrameworkElement &element,
     const winrt::Media::Brush brush) {
   if (IsObjectATextControl(element)) {
     UpdateTextControlBackgroundResourceBrushes(element, brush);
-  } else if (IsObjectAComboBox(element)) {
-    UpdateComboBoxBackgroundResourceBrushes(element, brush);
+  } else if (const auto comboBox = element.try_as<winrt::ComboBox>()) {
+    UpdateComboBoxBackgroundResourceBrushes(comboBox, brush);
+  } else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
+    UpdateComboBoxItemBackgroundResourceBrushes(comboBoxItem, brush);
   }
 }
 
@@ -127,6 +197,10 @@ void UpdateControlForegroundResourceBrushes(
   if (IsObjectATextControl(object)) {
     const auto element = object.try_as<winrt::FrameworkElement>();
     UpdateTextControlForegroundResourceBrushes(element, brush);
+  } else if (const auto comboBox = object.try_as<winrt::ComboBox>()) {
+    UpdateComboBoxForegroundResourceBrushes(comboBox, brush);
+  } else if (const auto comboBoxItem = object.try_as<winrt::ComboBoxItem>()) {
+    UpdateComboBoxItemForegroundResourceBrushes(comboBoxItem, brush);
   }
 }
 
@@ -137,6 +211,10 @@ void UpdateControlBorderResourceBrushes(
     UpdateTextControlBorderResourceBrushes(element, brush);
   } else if (const auto toggleSwitch = element.try_as<winrt::ToggleSwitch>()) {
     UpdateToggleSwitchBorderResourceBrushes(toggleSwitch, brush);
+  } else if (const auto comboBox = element.try_as<winrt::ComboBox>()) {
+    UpdateComboBoxBorderResourceBrushes(comboBox, brush);
+  }else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
+    UpdateComboBoxItemBorderResourceBrushes(comboBoxItem, brush);
   }
 }
 
