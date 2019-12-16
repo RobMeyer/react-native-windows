@@ -6,8 +6,8 @@
 #include <Views/ShadowNodeBase.h>
 #include "PickerViewManager.h"
 
-#include <Utils/ValueUtils.h>
 #include <Utils/PropertyUtils.h>
+#include <Utils/ValueUtils.h>
 #include "Unicode.h"
 
 #include <IReactInstance.h>
