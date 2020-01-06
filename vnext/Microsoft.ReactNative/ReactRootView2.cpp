@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 #include "pch.h"
-#include "ReactRootView.h"
+#include "ReactRootView2.h"
 #include "ReactRootView.g.cpp"
 #include <winrt/Windows.UI.Core.h>
 
@@ -10,7 +10,11 @@ using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml;
 
 namespace winrt::Microsoft::ReactNative::implementation {
-void ReactRootView::OnCreate(Microsoft::ReactNative::ReactNativeHost const &host) {
+
+bool s_isShiftKeyDown = false;
+bool s_isControlKeyDown = false;
+
+void ReactRootView::OnCreate(ReactNative::ReactNativeHost const &host) {
   auto resources = Application::Current().Resources();
   auto brush = resources.Lookup(box_value(L"ApplicationPageBackgroundThemeBrush")).as<Media::SolidColorBrush>();
   this->Background(brush);
@@ -29,7 +33,7 @@ void ReactRootView::OnCreate(Microsoft::ReactNative::ReactNativeHost const &host
 }
 
 fire_and_forget ReactRootView::StartReactApplicationAsync(
-    Microsoft::ReactNative::ReactInstanceManager const &instanceManager,
+    ReactNative::ReactInstanceManager const &instanceManager,
     hstring componentName,
     folly::dynamic initialProps) {
   if (!Dispatcher().HasThreadAccess()) {

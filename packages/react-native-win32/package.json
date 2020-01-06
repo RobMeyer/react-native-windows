@@ -1,6 +1,6 @@
 {
   "name": "@office-iss/react-native-win32",
-  "version": "0.25.7",
+  "version": "0.25.9",
   "description": "Implementation of react native on top of Office's Win32 platform.",
   "main": "./Libraries/react-native/react-native-implementation.win32.js",
   "typings": "./Libraries/react-native/typings-main.d.ts",
@@ -12,10 +12,10 @@
     "lint": "just-scripts eslint",
     "lint:fix": "eslint ./**/*.js ./**/*.ts? --fix",
     "watch": "tsc -w",
-    "bundle": "react-native bundle --platform win32 --entry-file RNTester.js --bundle-output dist/win32/dev/index.win32.bundle --assets-dest dist/win32/dev",
-    "run-win32": "rex-win32 --bundle RNTester.win32 --component RNTesterApp --basePath ./dist/win32/dev",
-    "run-win32-devmain": "rex-win32 --bundle RNTester.win32 --component RNTesterApp --basePath ./dist/win32/dev --useDevMain",
-    "run-win32-dev-web": "rex-win32 --bundle RNTester.win32 --component RNTesterApp --basePath ./dist/win32/dev --useWebDebugger"
+    "bundle": "just-scripts prepareBundle && react-native bundle --platform win32 --entry-file RNTester.js --bundle-output dist/win32/dev/RNTester.bundle --assets-dest dist/win32/dev",
+    "run-win32": "rex-win32 --bundle RNTester --component RNTesterApp --basePath ./dist/win32/dev",
+    "run-win32-devmain": "rex-win32 --bundle RNTester --component RNTesterApp --basePath ./dist/win32/dev --useDevMain",
+    "run-win32-dev-web": "rex-win32 --bundle RNTester --component RNTesterApp --basePath ./dist/win32/dev --useWebDebugger"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.0",
@@ -40,7 +40,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "react-native": "https://github.com/microsoft/react-native/archive/v0.60.0-microsoft.28.tar.gz",
+    "react-native": "https://github.com/microsoft/react-native/archive/v0.60.0-microsoft.31.tar.gz",
     "@office-iss/rex-win32": "0.0.30",
     "@types/es6-collections": "^0.5.29",
     "@types/es6-promise": "0.0.32",
@@ -53,7 +53,7 @@
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
-    "react-native": "^0.60.0 || 0.60.0-microsoft.28 || https://github.com/microsoft/react-native/archive/v0.60.0-microsoft.28.tar.gz",
+    "react-native": "^0.60.0 || 0.60.0-microsoft.31 || https://github.com/microsoft/react-native/archive/v0.60.0-microsoft.31.tar.gz",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },

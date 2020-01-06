@@ -119,6 +119,21 @@ void UpdateTextControlBackgroundResourceBrushes(const winrt::FrameworkElement &e
   UpdateResourceBrush(element, c_textControlButtonForegroundPressed, brush);
 }
 
+void UpdateCheckBoxBackgroundResourceBrushes(const winrt::FrameworkElement &element, const winrt::Brush brush) {
+  UpdateResourceBrush(element, c_checkBoxBackgroundUnchecked, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundUncheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundUncheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundUncheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundChecked, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundCheckedPointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundCheckedPressed, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundCheckedDisabled, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundIndeterminate, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundIndeterminatePointerOver, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundIndeterminatePressed, brush);
+  UpdateResourceBrush(element, c_checkBoxBackgroundIndeterminateDisabled, brush);
+}
+
 void UpdateTextControlForegroundResourceBrushes(const winrt::FrameworkElement element, const winrt::Brush brush) {
   UpdateResourceBrush(element, c_textControlForeground, brush);
   UpdateResourceBrush(element, c_textControlForegroundPointerOver, brush);
@@ -146,6 +161,21 @@ void UpdateToggleSwitchBorderResourceBrushes(const winrt::ToggleSwitch &toggleSw
   UpdateResourceBrush(toggleSwitch, c_toggleSwitchStrokeOnPointerOver, brush);
   UpdateResourceBrush(toggleSwitch, c_toggleSwitchStrokeOnPressed, brush);
   UpdateResourceBrush(toggleSwitch, c_toggleSwitchStrokeOnDisabled, brush);
+}
+
+void UpdateCheckBoxBorderResourceBrushes(const winrt::CheckBox &checkBox, const winrt::Brush brush) {
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushUnchecked, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushUncheckedPointerOver, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushUncheckedPressed, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushUncheckedDisabled, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushChecked, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushCheckedPointerOver, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushCheckedPressed, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushCheckedDisabled, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushIndeterminate, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushIndeterminatePointerOver, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushIndeterminatePressed, brush);
+  UpdateResourceBrush(checkBox, c_checkBoxBorderBrushIndeterminateDisabled, brush);
 }
 
 void UpdateToggleSwitchThumbResourceBrushes(const winrt::ToggleSwitch &toggleSwitch, const winrt::Brush thumbBrush) {
@@ -188,6 +218,8 @@ void UpdateControlBackgroundResourceBrushes(
     UpdateComboBoxBackgroundResourceBrushes(comboBox, brush);
   } else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
     UpdateComboBoxItemBackgroundResourceBrushes(comboBoxItem, brush);
+  } else if (const auto checkBox = element.try_as<winrt::CheckBox>()) {
+    UpdateCheckBoxBackgroundResourceBrushes(checkBox, brush);
   }
 }
 
@@ -215,6 +247,8 @@ void UpdateControlBorderResourceBrushes(
     UpdateComboBoxBorderResourceBrushes(comboBox, brush);
   } else if (const auto comboBoxItem = element.try_as<winrt::ComboBoxItem>()) {
     UpdateComboBoxItemBorderResourceBrushes(comboBoxItem, brush);
+  } else if (const auto checkBox = element.try_as<winrt::CheckBox>()) {
+    UpdateCheckBoxBorderResourceBrushes(checkBox, brush);
   }
 }
 

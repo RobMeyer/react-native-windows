@@ -1,7 +1,19 @@
 # Change Log - @office-iss/react-native-win32
 
-This log was last generated on Wed, 11 Dec 2019 22:51:44 GMT and should not be manually modified.
+This log was last generated on Sat, 21 Dec 2019 00:18:22 GMT and should not be manually modified.
 
+## 0.25.9
+Sat, 21 Dec 2019 00:18:22 GMT
+
+### Patches
+
+- Remove remaining need for fork of RN for win32 JS (acoates@microsoft.com)
+## 0.25.8
+Thu, 12 Dec 2019 22:18:13 GMT
+
+### Patches
+
+- Updating react-native to version: 0.60.0-microsoft.31 (53619745+rnbot@users.noreply.github.com)
 ## 0.25.7
 Wed, 11 Dec 2019 22:51:44 GMT
 
